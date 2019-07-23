@@ -87,7 +87,7 @@ def start_search(keyword):
     headers = {'User-Agent': USER_AGENT}
     resp = requests.get(url=search_url, headers=headers)
     print('请求响应状态码:', resp.status_code)
-    print('请求响应内容:', resp.text)
+    print('请求响应内容:', resp.json())
 
 
 if __name__ == '__main__':
