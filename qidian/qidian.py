@@ -18,10 +18,8 @@ class QidianSpider:
 
     session = requests.session()
 
-    # 字体文件路径
-    font_path = None
-    # 字体缓存
-    font_cache = None
+    # 字体映射
+    font_cmap = None
 
     def __init__(self):
         # 首页地址
@@ -48,36 +46,43 @@ class QidianSpider:
                 # 字数字体处理
                 words_tags = each_book.xpath('.//p[@class="update"]/span')
                 if words_tags:
+                    # @font-face
                     words_style = words_tags[0].xpath('./style/text()')[0]
                     font_pattern = re.compile(r', url\(\'(.*?\.ttf)\'\)')
                     font_ttf_urls = re.findall(pattern=font_pattern, string=words_style)
                     if font_ttf_urls:
-                        self._download_font(font_url=font_ttf_urls[0])
-                        self.load_font()
+                        self._get_font(font_ttf_urls[0])
                     # 原始的字数文本
                     raw_words = words_tags[0].xpath('./span[@class]/text()')
-                    print(raw_words)
+                    self._get_true_value(fake_words=raw_words[0])
                 print(book_info)
 
-    def _download_font(self, font_url):
-        """下载字体文件"""
+    def _get_font(self, font_url):
+        """获取字体映射
+        :param font_url: 字体url
+        """
+        font_resp = requests.get(font_url)
         # 因为同一次主页请求中字体文件一致，所以只需下载一次
-        if self.font_path is None:
-            print(font_url)
-            font_resp = requests.get(font_url)
-            with open('temp_font.ttf', 'wb') as f:
-                f.write(font_resp.content)
-                self.font_path = 'temp_font.ttf'
+        if self.font_cmap is None and font_resp.status_code == 200:
+            font = TTFont(BytesIO(font_resp.content))
+            self.font_cmap = font.getBestCmap()
+            font.close()
+            print(self.font_cmap)
         else:
             pass
 
-    def load_font(self):
-        font_table = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4,
+    def _get_true_value(self, fake_words):
+        """获取真实的字数"""
+        font_table = {'period': '.', 'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4,
                       'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}
-        if self.font_path is not None:
-            font = TTFont(self.font_path)
-            cmap = font.getBestCmap()
-            print(cmap)
+        true_wrods_count = ''
+        for word in fake_words.split(';'):
+            print(self.font_cmap)
+            key = self.font_cmap.get(int(word[2:]))
+            print(key)
+            # word_count += WORD_MAP[key]
+            # print(word)
+
 
 
 if __name__ == '__main__':
