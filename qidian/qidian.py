@@ -67,7 +67,6 @@ class QidianSpider:
             font = TTFont(BytesIO(font_resp.content))
             self.font_cmap = font.getBestCmap()
             font.close()
-            print(self.font_cmap)
         else:
             pass
 
@@ -77,11 +76,10 @@ class QidianSpider:
                       'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}
         true_wrods_count = ''
         for word in fake_words.split(';'):
+            print(word[2:])
             print(self.font_cmap)
-            key = self.font_cmap.get(int(word[2:]))
-            print(key)
-            # word_count += WORD_MAP[key]
-            # print(word)
+            # key = self.font_cmap.get(int(word[2:-1]))
+            # print(key)
 
 
 
