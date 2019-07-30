@@ -5,7 +5,7 @@ import time
 import random
 import requests
 from hashlib import md5
-from urllib.parse import quote, unquote_plus, urlencode
+from urllib.parse import unquote_plus, urlencode
 
 """
 美拍视频
