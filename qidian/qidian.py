@@ -75,12 +75,6 @@ class QidianSpider:
         font_table = {'period': '.', 'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4,
                       'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}
         true_wrods_count = ''
-        for word in fake_words.split(';'):
-            print(word[2:])
-            print(self.font_cmap)
-            # key = self.font_cmap.get(int(word[2:-1]))
-            # print(key)
-
 
 
 if __name__ == '__main__':
