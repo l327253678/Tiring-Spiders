@@ -8,7 +8,7 @@ from hashlib import md5
 from urllib.parse import unquote_plus, urlencode
 
 """
-美拍视频
+美拍视频APP
 
 - Device: 华为Nova|HUAWEI CAZ-TL10
 - OS: Android 7.0
