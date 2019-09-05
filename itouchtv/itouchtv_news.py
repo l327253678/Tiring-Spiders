@@ -26,7 +26,7 @@ eg:
 CONST_KEY = 'HGXimfS2hcAeWbsCW19JQ7PDasYOgg1lY2UWUDVX8nNmwr6aSaFznnPzKrZ84VY1'
 
 
-def get_headers(target_url: str, ts_ms: int, method: str = 'GET'):
+def get_headers(target_url: str, ts_ms: int, method: str = 'GET') -> dict:
     """获取请求headers
     :param target_url: 目标url
     :param ts_ms: 当前毫秒时间戳
@@ -61,6 +61,6 @@ def get_recommend_news():
 
 
 if __name__ == '__main__':
-    # 以获取推荐页为例
+    # 以获取推荐页为例，也适用于其它版块
     result = get_recommend_news()
     print('新闻列表 >>', result)
