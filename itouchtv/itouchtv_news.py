@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*- 
 # @Author : Leo
 
+import uuid
 import hmac
 import time
 import base64
@@ -40,7 +41,7 @@ def get_headers(target_url: str, ts_ms: int, method: str = 'GET') -> dict:
         'X-ITOUCHTV-Ca-Signature': signature,
         'X-ITOUCHTV-Ca-Timestamp': str(ts_ms),
         'X-ITOUCHTV-CLIENT': 'ITOUCHTV_WEB',
-        'X-ITOUCHTV-DEVICE-ID': 'WEB_b69027b0-cef9-11e9-beed-23bc5b95245b'
+        'X-ITOUCHTV-DEVICE-ID': 'WEB_' + str(uuid.uuid1())
     }
     return cur_headers
 
