@@ -105,11 +105,16 @@ def get_page_items(keyword: str, city: str, page=1):
         page_data = resp.json()
         # 处理json数据中的加密字体
         trans_raw_data(page_data)
-        print('处理字体后得到的json数据>>')
-        cpprint(page_data)
+        # print('处理字体后得到的json数据>>')
+        # cpprint(page_data)
+        return page_data
+    else:
+        raise requests.exceptions.RequestException('请求检索URL出错')
 
 
 if __name__ == '__main__':
     temp_kw = 'Python'
     temp_city = '广州'
-    get_page_items(keyword=temp_kw, city=temp_city)
+    search_result = get_page_items(keyword=temp_kw, city=temp_city)
+    print('检索结果>>')
+    cpprint(search_result)
